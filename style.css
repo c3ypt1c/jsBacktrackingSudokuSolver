@@ -64,16 +64,24 @@ body {
 	border-right: 5px black solid;
 }
 
+.tableTc:nth-child(9n) {
+	border-right: 1px black solid;
+}
+
 .tableTr:nth-child(3n) > .tableTc {
 	border-bottom: 5px black solid;
 }
 
+.tableTr:nth-child(9n) {
+	border-right: 1px black solid;
+}
+
 .tableTc {
 	display: table-cell;
-	background-color: #D4C280;
 	border: 1px black solid;
 	height:4rem;
 	width: 4rem;
+	background:#47817D;
 }
 
 .tableTc .wrapper {
@@ -91,8 +99,3 @@ body {
 	font-family: Ubuntu;
 	text-align: center;
 }
-
-.tableTc {
-
-}
-
