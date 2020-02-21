@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous|Ubuntu&display=swap');
+
+html {
+	margin:0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+h1 {
+	margin-top: 0;
+	font-family: Righteous;
+	font-size: 3em;
+}
+
+body {
+	font-family: Ubuntu;
+	text-align: center;
+	display: block;
+	margin: 0 0 0 0;
+	margin-left:auto;
+	margin-right: auto;
+
+	padding:0 0 0 0;
+	padding-top: 0.5em;
+
+	max-width: 40em;
+
+	background-color:black;
+	color:white;
+	height: calc(100vh - 0.5em);
+	max-height: calc(100vh - 0.5em);
+}
+
+.button {
+	cursor:pointer;
+	font-family: Comfortaa;
+	background-color: #444;
+	border: 1px solid #aaa;
+	display: inline-block;
+	margin-left:auto;
+	margin-right:auto;
+	width: 10em;
+	padding: 0.5em 1em 0.5em 1em;
+	margin:0.5em 1em 0.5em 1em;
+}
+
+.button.primary {
+	background-color: #47817D;
+	border: 1px solid #6EC8C2;
+}
+
+#table {
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.tableTr {
+	display: table-row;
+}
+
+.tableTc:nth-child(3n) {
+	border-right: 5px black solid;
+}
+
+.tableTr:nth-child(3n) > .tableTc {
+	border-bottom: 5px black solid;
+}
+
+.tableTc {
+	display: table-cell;
+	background-color: #D4C280;
+	border: 1px black solid;
+	height:4rem;
+	width: 4rem;
+}
+
+.tableTc .wrapper {
+	position: relative;
+	display: block;
+	margin: auto auto auto auto;
+}
+
+.tableTc .wrapper select {
+	font-family: Ubuntu;
+	transform: translateY( calc( 2em - 0.4em ) );
+}
+
+.tableTc .wrapper select option {
+	font-family: Ubuntu;
+	text-align: center;
+}
+
+.tableTc {
+
+}
+
