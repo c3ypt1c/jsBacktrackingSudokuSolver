@@ -7,7 +7,7 @@ function genSelect() {
 	for (var i = 0; i < 10; i++) {
 		let opt = document.createElement("option");
 		if(i != 0) 	opt.text = opt.value = i;
-		else 		opt.defaultSelected = opt.text = opt.value = ""; 
+		else 		opt.defaultSelected = opt.text = opt.value = " "; 
 		select.appendChild(opt);
 	}
 
@@ -36,4 +36,11 @@ function init() {
 		table.appendChild(tr);
 	}
 
+	$("reset").addEventListener("click", reset);
+
+}
+
+function reset() {
+	$("table").textContent = "";
+	init();
 }
