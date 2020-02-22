@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="solver.js"></script>
+	</head>
+	<body onload="init()">
+		<h1>Sudoku Solver</h1>
+		
+		<div id="tableWrapper">
+			<div id="table"></div>
+		</div>
+
+		<div id="solve" class="primary button">Solve Puzzle</div>
+		<div id="test" class="button">Load Test Puzzle</div>
+		<div id="reset" class="button">Reset Puzzle</div>
+
+		<div id="loading" class="hidden">
+			<div class="spinny"></div>
+			<p>Loading your solution, please wait a moment!</p>
+		</div>
+	</body>
+</html>
