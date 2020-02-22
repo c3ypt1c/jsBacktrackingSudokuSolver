@@ -1,4 +1,8 @@
-var possible = [];
+var possible = new Array(9);
+
+for (var i = 0; i < 9; i++) {
+	possible[i] = new Array(9); //populate arrays
+}
 
 Array.prototype.in = function(item) {
 	return this.indexOf(item) != -1;
@@ -28,7 +32,7 @@ function findPossibleQua(grid, row, col) {
 	let elem = [];
 	for (var x = row * 3; x < row * 3 + 3; x++) {
 		for (var y = col * 3; y < col * 3 + 3; y++) {
-			elem.push(grid[y][x]);
+			elem.push(grid[x][y]);
 		}
 	}
 	return findPossibleRow(elem);
@@ -36,11 +40,11 @@ function findPossibleQua(grid, row, col) {
 
 function findPossibleSummary(grid, row, col) {
 	let rowVals = findPossibleRow(grid[row]);
-	console.log(rowVals);
+	//console.log(rowVals);
 	let colVals = findPossibleCol(grid, col);
-	console.log(colVals);
+	//console.log(colVals);
 	let quaVals = findPossibleQua(grid, Math.floor(row / 3), Math.floor(col / 3));
-	console.log(quaVals);
+	//console.log(quaVals);
 	let currentPossible = [];
 
 	for (var i = 1; i < 10; i++) {
@@ -51,19 +55,41 @@ function findPossibleSummary(grid, row, col) {
 }
 
 function findAllPossible() {
-
-}
-
-function findPossible(row, col) {
 	let grid = getGrid();
+
+	for (var row = 0; row < grid.length; row++) {
+		for (var col = 0; col < grid[row].length; col++) {
+			possible[row][col] = findPossibleSummary(grid, row, col);
+			//grid[row][col]
+		}
+	}
 }
 
 function $(id) {
 	return document.getElementById(id);
 }
 
+function selectUpdate(event) {
+	findAllPossible();
+
+	console.log(event);
+	let sender = event.target;
+	let id = sender.offsetParent.id;
+	id = id.substring(6);
+	let row = id[0];
+	let col = id[1];
+
+	for (var i = 0; i < sender.children.length; i++) {
+		if (possible[row][col].in(i)) sender.children[i].classList.add("possible");
+		else sender.children[i].classList.remove("possible");
+	}
+
+}
+
 function genSelect() {
 	let select = document.createElement("select");
+	select.addEventListener("click", selectUpdate);
+
 	for (var i = 0; i < 10; i++) {
 		let opt = document.createElement("option");
 		if(i != 0) 	opt.text = opt.value = i;
@@ -131,7 +157,6 @@ function getGrid() {
 			grid[row][col] = select.selectedIndex;
 		}
 	}
-	console.table(grid);
 	return grid;
 }
 
