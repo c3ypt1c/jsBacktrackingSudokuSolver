@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous|Ubuntu&display=swap');
 
 html {
-	margin:0 0 0 0;
-	padding: 0 0 0 0;
+	margin: 0;
+	padding: 0;
 }
 
 h1 {
@@ -15,11 +15,11 @@ body {
 	font-family: Ubuntu;
 	text-align: center;
 	display: block;
-	margin: 0 0 0 0;
+	margin: 0;
 	margin-left:auto;
 	margin-right: auto;
 
-	padding:0 0 0 0;
+	padding: 0;
 	padding-top: 0.5em;
 
 	max-width: 40em;
@@ -31,7 +31,7 @@ body {
 }
 
 .button {
-	cursor:pointer;
+	cursor: pointer;
 	font-family: Comfortaa;
 	background-color: #444;
 	border: 1px solid #aaa;
@@ -48,12 +48,21 @@ body {
 	border: 1px solid #6EC8C2;
 }
 
+#tableWrapper {
+	transition: all 5s ease;
+	overflow: hidden;
+}
+
 #table {
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
 	padding-left: 1em;
 	padding-right: 1em;
+}
+
+.loadedTable {
+
 }
 
 .tableTr {
@@ -73,7 +82,7 @@ body {
 }
 
 .tableTr:nth-child(9n) {
-	border-right: 1px black solid;
+	border-bottom: 1px black solid;
 }
 
 .tableTc {
@@ -102,4 +111,24 @@ body {
 
 .possible {
 	background-color: #A2FF98;
+}
+
+#loading {
+	position: absolute;
+	display: block;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #8A24A4;
+	padding: 1em;
+	border-radius: 0.5em;
+	border: 1px solid #DC52FF;
+	opacity: 1;
+	transition: opacity 0.5s ease, all 1s ease;
+	clip-path: circle(100%);
+}
+
+.hidden {
+	opacity: 0 !important;
+	clip-path: circle(0%) !important;
 }

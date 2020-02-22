@@ -9,12 +9,17 @@
 	<body onload="init()">
 		<h1>Sudoku Solver</h1>
 		
-		<div>
+		<div id="tableWrapper">
 			<div id="table"></div>
 		</div>
 
 		<div id="solve" class="primary button">Solve Puzzle</div>
 		<div id="test" class="button">Load Test Puzzle</div>
 		<div id="reset" class="button">Reset Puzzle</div>
+
+		<div id="loading" class="hidden">
+			<div class="spinny"></div>
+			<p>Loading your solution, please wait a moment!</p>
+		</div>
 	</body>
 </html>

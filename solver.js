@@ -1,4 +1,9 @@
 var possible = new Array(9);
+var worker = new Worker("solutionWorker.js");
+
+worker.onmessage = function(e) {
+	console.table(e.data);
+};
 
 for (var i = 0; i < 9; i++) {
 	possible[i] = new Array(9); //populate arrays
@@ -119,6 +124,25 @@ function test() {
 	setGrid(getTestGrid());
 }
 
+function reset() {
+	$("table").textContent = "";
+	init();
+}
+
+var loading = false;
+
+function startSolver() {
+	//show loading page
+	if (loading) return false;
+	loading = true;
+	$("loading").classList.remove("hidden");
+	console.log("Sent grid to worker");
+	console.table(getGrid());
+	worker.postMessage(getGrid());
+
+	return true;
+}
+
 function init() {
 	
 	let table = $("table");
@@ -138,14 +162,10 @@ function init() {
 		table.appendChild(tr);
 	}
 
+	$("solve").addEventListener("click", startSolver);
 	$("reset").addEventListener("click", reset);
 	$("test").addEventListener("click", test);
-
-}
-
-function reset() {
-	$("table").textContent = "";
-	init();
+	$("tableWrapper").classList.add("loadedTable");
 }
 
 function getGrid() {
