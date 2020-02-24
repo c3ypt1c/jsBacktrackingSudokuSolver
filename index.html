@@ -13,13 +13,28 @@
 			<div id="table"></div>
 		</div>
 
-		<div id="solve" class="primary button">Solve Puzzle</div>
-		<div id="test" class="button">Load Test Puzzle</div>
-		<div id="reset" class="button">Reset Puzzle</div>
+		<div class="buttons">
+			<div id="solve" class="primary button"><p>Solve Puzzle</p></div>
+			<div id="test" class="button"><p>Load Hard Test Puzzle</p></div>
+			<div id="testEasy" class="button"><p>Load Easy Test Puzzle</p></div>
+			<div id="reset" class="button"><p>Reset Puzzle</p></div>
+		</div>
 
-		<div id="loading" class="hidden">
-			<div class="spinny"></div>
+		<div id="loading" class="popup hidden">
 			<p>Loading your solution, please wait a moment!</p>
+		</div>
+
+		<div id="solved" class="popup hidden">
+			<p>Your puzzle is solved!</p>
+		</div>
+
+		<div id="failed" class="popup hidden">
+			<p>Your puzzle cannot be solved!</p>
+		</div>
+
+		<div id="loadingScreen" class="">
+			<div id="spinny"><script type="text/javascript" src="spinny.js"></script></div>
+			<p>Sudoku solver is loading!</p>
 		</div>
 	</body>
 </html>

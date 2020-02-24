@@ -3,7 +3,40 @@ var worker = new Worker("solutionWorker.js");
 
 worker.onmessage = function(e) {
 	console.table(e.data);
+	
+	$("loading").classList.add("hidden");
+	loading = false;
+
+	if(e.data == false) {
+		showError(); //show a dialog saying that the puzzle cannot be solved.
+	}
+	else {
+		setGrid(e.data);
+		showSolved();
+	}
 };
+
+function $(id) {
+	return document.getElementById(id);
+}
+
+function showError() {
+	$("failed").classList.remove("hidden");
+	setTimeout(hideError, 1500);
+}
+
+function hideError() {
+	$("failed").classList.add("hidden");
+}
+
+function showSolved() {
+	$("solved").classList.remove("hidden");
+	setTimeout(hideSolved, 1500);
+}
+
+function hideSolved() {
+	$("solved").classList.add("hidden");
+}
 
 for (var i = 0; i < 9; i++) {
 	possible[i] = new Array(9); //populate arrays
@@ -21,7 +54,7 @@ function findPossibleRow(row) {
 
 		let index = currentPossible.indexOf(elem);
 		if(index != -1) currentPossible.splice(index,1);
-		else return false;
+		else return [];
 	}
 	return currentPossible;
 }
@@ -45,11 +78,8 @@ function findPossibleQua(grid, row, col) {
 
 function findPossibleSummary(grid, row, col) {
 	let rowVals = findPossibleRow(grid[row]);
-	//console.log(rowVals);
 	let colVals = findPossibleCol(grid, col);
-	//console.log(colVals);
 	let quaVals = findPossibleQua(grid, Math.floor(row / 3), Math.floor(col / 3));
-	//console.log(quaVals);
 	let currentPossible = [];
 
 	for (var i = 1; i < 10; i++) {
@@ -65,13 +95,8 @@ function findAllPossible() {
 	for (var row = 0; row < grid.length; row++) {
 		for (var col = 0; col < grid[row].length; col++) {
 			possible[row][col] = findPossibleSummary(grid, row, col);
-			//grid[row][col]
 		}
 	}
-}
-
-function $(id) {
-	return document.getElementById(id);
 }
 
 function selectUpdate(event) {
@@ -109,19 +134,39 @@ function genSelect() {
 }
 
 function getTestGrid() {
-	return [[2, 3, 0, 4, 1, 5, 0, 6, 8], 
-			[0, 8, 0, 2, 3, 6, 5, 1, 9], 
-			[1, 6, 0, 9, 8, 7, 2, 3, 4],
-			[3, 1, 7, 0, 9, 4, 0, 2, 5], 
-			[4, 5, 8, 1, 2, 0, 6, 9, 7], 
-			[9, 2, 6, 0, 5, 8, 3, 0, 1], 
-			[0, 0, 0, 5, 0, 0, 1, 0, 2], 
-			[0, 0, 0, 8, 4, 2, 9, 0, 3], 
-			[5, 9, 2, 3, 7, 1, 4, 8, 6]];
+	return [[0, 8, 0,  1, 0, 0,  0, 2, 0], 
+			[0, 0, 0,  9, 0, 0,  0, 5, 0], 
+			[9, 7, 2,  0, 0, 0,  0, 6, 0],
+
+			[4, 0, 0,  0, 2, 6,  0, 0, 0], 
+			[0, 0, 0,  0, 5, 0,  7, 0, 0], 
+			[8, 0, 1,  0, 0, 0,  0, 0, 0],
+
+			[0, 0, 0,  6, 9, 5,  0, 0, 0], 
+			[0, 2, 5,  0, 0, 0,  0, 0, 9], 
+			[0, 0, 0,  0, 4, 0,  0, 0, 1]];
+}
+
+function genTestGridEasy() {
+	return [[2, 3, 0,  4, 1, 5,  0, 6, 8], 
+			[0, 8, 0,  2, 3, 6,  5, 1, 9], 
+			[1, 6, 0,  9, 8, 7,  2, 3, 4],
+
+			[3, 1, 7,  0, 9, 4,  0, 2, 5], 
+			[4, 5, 8,  1, 2, 0,  6, 9, 7], 
+			[9, 2, 6,  0, 5, 8,  3, 0, 1], 
+
+			[0, 0, 0,  5, 0, 0,  1, 0, 2], 
+			[0, 0, 0,  8, 4, 2,  9, 0, 3], 
+			[5, 9, 2,  3, 7, 1,  4, 8, 6]];
 }
 
 function test() {
 	setGrid(getTestGrid());
+}
+
+function testEasy() {
+	setGrid(genTestGridEasy());
 }
 
 function reset() {
@@ -165,7 +210,13 @@ function init() {
 	$("solve").addEventListener("click", startSolver);
 	$("reset").addEventListener("click", reset);
 	$("test").addEventListener("click", test);
+	$("testEasy").addEventListener("click", testEasy);
 	$("tableWrapper").classList.add("loadedTable");
+	setTimeout(smoothLoad, 1500);
+}
+
+function smoothLoad() {
+	$("loadingScreen").classList.add("hidden");
 }
 
 function getGrid() {
