@@ -3,11 +3,22 @@ var worker = new Worker("solutionWorker.js");
 
 worker.onmessage = function(e) {
 	console.table(e.data);
-	if(e.data != false) setGrid(e.data);
-	else showError(); //show a dialog saying that the puzzle cannot be solved.
-	loading = false;
+	
 	$("loading").classList.add("hidden");
+	loading = false;
+
+	if(e.data == false) {
+		showError(); //show a dialog saying that the puzzle cannot be solved.
+	}
+	else {
+		setGrid(e.data);
+		showSolved();
+	}
 };
+
+function $(id) {
+	return document.getElementById(id);
+}
 
 function showError() {
 	$("failed").classList.remove("hidden");
@@ -16,6 +27,15 @@ function showError() {
 
 function hideError() {
 	$("failed").classList.add("hidden");
+}
+
+function showSolved() {
+	$("solved").classList.remove("hidden");
+	setTimeout(hideSolved, 1500);
+}
+
+function hideSolved() {
+	$("solved").classList.add("hidden");
 }
 
 for (var i = 0; i < 9; i++) {
@@ -34,7 +54,7 @@ function findPossibleRow(row) {
 
 		let index = currentPossible.indexOf(elem);
 		if(index != -1) currentPossible.splice(index,1);
-		else return false;
+		else return [];
 	}
 	return currentPossible;
 }
@@ -58,11 +78,8 @@ function findPossibleQua(grid, row, col) {
 
 function findPossibleSummary(grid, row, col) {
 	let rowVals = findPossibleRow(grid[row]);
-	//console.log(rowVals);
 	let colVals = findPossibleCol(grid, col);
-	//console.log(colVals);
 	let quaVals = findPossibleQua(grid, Math.floor(row / 3), Math.floor(col / 3));
-	//console.log(quaVals);
 	let currentPossible = [];
 
 	for (var i = 1; i < 10; i++) {
@@ -78,13 +95,8 @@ function findAllPossible() {
 	for (var row = 0; row < grid.length; row++) {
 		for (var col = 0; col < grid[row].length; col++) {
 			possible[row][col] = findPossibleSummary(grid, row, col);
-			//grid[row][col]
 		}
 	}
-}
-
-function $(id) {
-	return document.getElementById(id);
 }
 
 function selectUpdate(event) {
@@ -200,6 +212,11 @@ function init() {
 	$("test").addEventListener("click", test);
 	$("testEasy").addEventListener("click", testEasy);
 	$("tableWrapper").classList.add("loadedTable");
+	setTimeout(smoothLoad, 1500);
+}
+
+function smoothLoad() {
+	$("loadingScreen").classList.add("hidden");
 }
 
 function getGrid() {

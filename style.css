@@ -139,8 +139,13 @@ body {
 	border: 1px solid #FF5252;
 }
 
+#solved {
+	background-color: #2DA424;
+	border: 1px solid #66FF52;
+}
+
 .popup {
-	position: absolute;
+	position: fixed;
 	display: block;
 	top: 50%;
 	left: 50%;
@@ -155,4 +160,69 @@ body {
 .hidden {
 	opacity: 0 !important;
 	clip-path: circle(0%) !important;
+}
+
+#loadingScreen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transition: all 1s ease, opacity 5s ease;
+	background-color: black;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	clip-path: circle(100%);
+	opacity: 1;
+}
+
+#loadingScreen > #spinny {
+	width: 100%;
+	height: 120px;
+	position: relative;
+}
+
+#grid {
+	background-color: white;
+	animation: rot 6s linear infinite;
+}
+
+#grid, .spinnyImage {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.spinnyImage {
+	opacity: 0;
+	animation: rot 6s linear infinite, op 2s cubic-bezier(1,1.53,1,1.75) infinite;
+}
+
+@keyframes op {
+	0% {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes rot {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }

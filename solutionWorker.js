@@ -146,10 +146,58 @@ function reduce(grid) { //quickly tries solving the grid by reduction.
 	return grid;
 }
 
+function containsDuplicates(row) { //returns false if there are duplicate items, if not returns true
+	let current = [];
+	for (var item = row.length - 1; item >= 0; item--) {
+		if(row[item] == 0) continue; //skip 0s
+		if(current.in(row[item])) return true;
+		current.push(row[item]);
+	}
+
+	return false;
+}
+
+function checkDuplicateCol(grid, col) {	
+	let rows = [];
+	for (var row = grid.length - 1; row >= 0; row--) rows.push(grid[row][col]); 
+
+	return containsDuplicates(rows); 
+}
+
+function checkDuplicateQua(grid, row, col) {
+	let elem = [];
+	for (var x = row * 3; x < row * 3 + 3; x++) {
+		for (var y = col * 3; y < col * 3 + 3; y++) {
+			elem.push(grid[x][y]);	
+		}
+	}
+	return containsDuplicates(elem); 
+}
+
+function checkPossible(grid) { //this function checks for duplicate values in the grid
+	for (var row = grid.length - 1; row >= 0; row--) {
+		if(containsDuplicates(grid[row])) return false;
+		if(checkDuplicateCol(grid, row)) return false;
+	}
+
+	for (var row = 0; row < 3; row++) {
+		for (var col = 0; col < 3; col++) {
+			if(checkDuplicateQua(grid, row, col)) return false;
+		}
+	}
+
+	return true;
+}
+
 function solve(e) { //where the worker receives instructions. 
 	let grid = e.data;
-	grid = reduce(grid);
-	if(!checkSolved(grid)) grid = backtracking(grid, 0);
+	if(checkPossible(grid)) {
+		grid = reduce(grid);
+		if(!checkSolved(grid)) grid = backtracking(grid, 0);
+	} 
+
+	else grid = false;
+
 	self.postMessage(grid);
 }
 
