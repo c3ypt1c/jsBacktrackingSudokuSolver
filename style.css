@@ -37,6 +37,7 @@ body {
 	justify-content: space-evenly;
 	align-content: space-around;
 	width: calc( 100% - 2em);
+	margin: auto;
 }
 
 .button {
@@ -129,15 +130,23 @@ body {
 }
 
 #loading {
+	background-color: #8A24A4;
+	border: 1px solid #DC52FF;
+}
+
+#failed {
+	background-color: #A42424;
+	border: 1px solid #FF5252;
+}
+
+.popup {
 	position: absolute;
 	display: block;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: #8A24A4;
 	padding: 1em;
 	border-radius: 0.5em;
-	border: 1px solid #DC52FF;
 	opacity: 1;
 	transition: opacity 0.5s ease, all 1s ease;
 	clip-path: circle(100%);

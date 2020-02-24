@@ -4,10 +4,19 @@ var worker = new Worker("solutionWorker.js");
 worker.onmessage = function(e) {
 	console.table(e.data);
 	if(e.data != false) setGrid(e.data);
-	else; //show a dialog saying that the puzzle cannot be solved.
+	else showError(); //show a dialog saying that the puzzle cannot be solved.
 	loading = false;
 	$("loading").classList.add("hidden");
 };
+
+function showError() {
+	$("failed").classList.remove("hidden");
+	setTimeout(hideError, 1500);
+}
+
+function hideError() {
+	$("failed").classList.add("hidden");
+}
 
 for (var i = 0; i < 9; i++) {
 	possible[i] = new Array(9); //populate arrays
