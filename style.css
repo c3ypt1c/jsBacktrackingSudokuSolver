@@ -30,17 +30,33 @@ body {
 	max-height: calc(100vh - 0.5em);
 }
 
+.buttons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: space-around;
+	width: calc( 100% - 2em);
+}
+
 .button {
 	cursor: pointer;
 	font-family: Comfortaa;
 	background-color: #444;
 	border: 1px solid #aaa;
-	display: inline-block;
-	margin-left:auto;
-	margin-right:auto;
 	width: 10em;
 	padding: 0.5em 1em 0.5em 1em;
-	margin:0.5em 1em 0.5em 1em;
+	margin:0.5em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: column;
+}
+
+.button > p {
+	margin: 0;
 }
 
 .button.primary {
@@ -50,7 +66,6 @@ body {
 
 #tableWrapper {
 	transition: all 5s ease;
-	overflow: hidden;
 }
 
 #table {
