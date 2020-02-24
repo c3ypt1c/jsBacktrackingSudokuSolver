@@ -3,7 +3,8 @@ var worker = new Worker("solutionWorker.js");
 
 worker.onmessage = function(e) {
 	console.table(e.data);
-	setGrid(e.data);
+	if(e.data != false) setGrid(e.data);
+	else; //show a dialog saying that the puzzle cannot be solved.
 	loading = false;
 	$("loading").classList.add("hidden");
 };
@@ -133,7 +134,7 @@ function genTestGridEasy() {
 			[3, 1, 7,  0, 9, 4,  0, 2, 5], 
 			[4, 5, 8,  1, 2, 0,  6, 9, 7], 
 			[9, 2, 6,  0, 5, 8,  3, 0, 1], 
-			
+
 			[0, 0, 0,  5, 0, 0,  1, 0, 2], 
 			[0, 0, 0,  8, 4, 2,  9, 0, 3], 
 			[5, 9, 2,  3, 7, 1,  4, 8, 6]];
